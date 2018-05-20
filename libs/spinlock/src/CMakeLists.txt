@@ -3,6 +3,7 @@ set( LIB_NAME ps-spinlock )
 
 add_library( ${LIB_NAME} STATIC
     s_lock.c
+    spin.c
 )
 
 target_include_directories( ${LIB_NAME} PRIVATE 
