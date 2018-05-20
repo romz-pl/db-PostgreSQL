@@ -19,9 +19,6 @@
  *-------------------------------------------------------------------------
  */
 
-// #include "postgres.h"
-
-// #include "miscadmin.h"
 #include "memdebug.h"
 #include "memutils.h"
 #include <string.h>
