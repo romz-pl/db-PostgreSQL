@@ -1,6 +1,8 @@
 #ifndef PS_GLOBAL_MACROS_H
 #define PS_GLOBAL_MACROS_H
 
+#include <ps/global/pg_config.h>
+
 
 /* ----------------------------------------------------------------
   *              Section 7:  widely useful macros
@@ -44,7 +46,7 @@
      do \
      { \
          char * _dst = (dst); \
-         Size _len = (len); \
+         size_t _len = (len); \
  \
          if (_len > 0) \
          { \
@@ -73,7 +75,7 @@
          /* must be void* because we don't know if it is integer aligned yet */ \
          void   *_vstart = (void *) (start); \
          int     _val = (val); \
-         Size    _len = (len); \
+         size_t    _len = (len); \
  \
          if ((((uintptr_t) _vstart) & LONG_ALIGN_MASK) == 0 && \
              (_len & LONG_ALIGN_MASK) == 0 && \
@@ -105,7 +107,7 @@
      { \
          long   *_start = (long *) (start); \
          int     _val = (val); \
-         Size    _len = (len); \
+         size_t    _len = (len); \
  \
          if ((_len & LONG_ALIGN_MASK) == 0 && \
              _val == 0 && \
@@ -139,13 +141,90 @@
      do \
      { \
          long * _start = (long *) (start); \
-         long * _stop = (long *) ((char *) _start + (Size) (len)); \
+         long * _stop = (long *) ((char *) _start + (size_t) (len)); \
      \
          while (_start < _stop) \
              *_start++ = 0; \
      } while (0)
 
 #define PG_FUNCNAME_MACRO   NULL
+
+#define pg_attribute_printf(...)
+
+
+/* ----------------------------------------------------------------
+  *              Section 5:  offsetof, lengthof, endof, alignment
+  * ----------------------------------------------------------------
+  */
+ /*
+  * offsetof
+  *      Offset of a structure/union field within that structure/union.
+  *
+  *      XXX This is supposed to be part of stddef.h, but isn't on
+  *      some systems (like SunOS 4).
+  */
+#ifndef offsetof
+#define offsetof(type, field)   ((long) &((type *)0)->field)
+#endif                          /* offsetof */
+
+/*
+* lengthof
+*      Number of elements in an array.
+*/
+#define lengthof(array) (sizeof (array) / sizeof ((array)[0]))
+
+/*
+* endof
+*      Address of the element one past the last in an array.
+*/
+#define endof(array)    (&(array)[lengthof(array)])
+
+/* ----------------
+* Alignment macros: align a length or address appropriately for a given type.
+* The fooALIGN() macros round up to a multiple of the required alignment,
+* while the fooALIGN_DOWN() macros round down.  The latter are more useful
+* for problems like "how many X-sized structures will fit in a page?".
+*
+* NOTE: TYPEALIGN[_DOWN] will not work if ALIGNVAL is not a power of 2.
+* That case seems extremely unlikely to be needed in practice, however.
+*
+* NOTE: MAXIMUM_ALIGNOF, and hence MAXALIGN(), intentionally exclude any
+* larger-than-8-byte types the compiler might have.
+* ----------------
+*/
+
+#define TYPEALIGN(ALIGNVAL,LEN)  \
+ (((uintptr_t) (LEN) + ((ALIGNVAL) - 1)) & ~((uintptr_t) ((ALIGNVAL) - 1)))
+
+#define SHORTALIGN(LEN)         TYPEALIGN(ALIGNOF_SHORT, (LEN))
+#define INTALIGN(LEN)           TYPEALIGN(ALIGNOF_INT, (LEN))
+#define LONGALIGN(LEN)          TYPEALIGN(ALIGNOF_LONG, (LEN))
+#define DOUBLEALIGN(LEN)        TYPEALIGN(ALIGNOF_DOUBLE, (LEN))
+#define MAXALIGN(LEN)           TYPEALIGN(MAXIMUM_ALIGNOF, (LEN))
+/* MAXALIGN covers only built-in types, not buffers */
+#define BUFFERALIGN(LEN)        TYPEALIGN(ALIGNOF_BUFFER, (LEN))
+#define CACHELINEALIGN(LEN)     TYPEALIGN(PG_CACHE_LINE_SIZE, (LEN))
+
+#define TYPEALIGN_DOWN(ALIGNVAL,LEN)  \
+ (((uintptr_t) (LEN)) & ~((uintptr_t) ((ALIGNVAL) - 1)))
+
+#define SHORTALIGN_DOWN(LEN)    TYPEALIGN_DOWN(ALIGNOF_SHORT, (LEN))
+#define INTALIGN_DOWN(LEN)      TYPEALIGN_DOWN(ALIGNOF_INT, (LEN))
+#define LONGALIGN_DOWN(LEN)     TYPEALIGN_DOWN(ALIGNOF_LONG, (LEN))
+#define DOUBLEALIGN_DOWN(LEN)   TYPEALIGN_DOWN(ALIGNOF_DOUBLE, (LEN))
+#define MAXALIGN_DOWN(LEN)      TYPEALIGN_DOWN(MAXIMUM_ALIGNOF, (LEN))
+
+/*
+* The above macros will not work with types wider than uintptr_t, like with
+* uint64 on 32-bit platforms.  That's not problem for the usual use where a
+* pointer or a length is aligned, but for the odd case that you need to
+* align something (potentially) wider, use TYPEALIGN64.
+*/
+#define TYPEALIGN64(ALIGNVAL,LEN)  \
+ (((uint64) (LEN) + ((ALIGNVAL) - 1)) & ~((uint64) ((ALIGNVAL) - 1)))
+
+/* we don't currently need wider versions of the other ALIGN macros */
+#define MAXALIGN64(LEN)         TYPEALIGN64(MAXIMUM_ALIGNOF, (LEN))
 
 #endif
 
