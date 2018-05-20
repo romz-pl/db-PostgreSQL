@@ -11,13 +11,9 @@
  *
  *-------------------------------------------------------------------------
  */
-// #include "postgres.h"
 
-// #include "miscadmin.h"
 #include "atomics.h"
-// #include "storage/spin.h"
-
-typedef int slock_t;
+#include <ps/spinlock/spinlock.h>
 
 #ifdef PG_HAVE_MEMORY_BARRIER_EMULATION
 #ifdef WIN32

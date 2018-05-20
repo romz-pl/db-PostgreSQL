@@ -45,18 +45,15 @@
  *
  *-------------------------------------------------------------------------
  */
-// #include "postgres.h"
 
 #include <time.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "s_lock.h"
-// #include "port/atomics.h"
 #include <ps/global/pg_config_manual.h>
 #include <ps/global/macros.h>
-// #include <ps/elog/elog.h>
 #include <ps/rand/random.h>
-#include <stdlib.h>
 #include <ps/sleep/pgsleep.h>
 
 
