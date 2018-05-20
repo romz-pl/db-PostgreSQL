@@ -1,2 +1,5 @@
-#include "../../../src/elog.h"
+// #include "../../../src/elog.h"
+
+
+#define elog(...) 
 
