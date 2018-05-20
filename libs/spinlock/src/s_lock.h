@@ -98,6 +98,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <ps/global/pg_config.h>
 
 #ifdef FRONTEND
 #error "s_lock.h may not be included from frontend code"
