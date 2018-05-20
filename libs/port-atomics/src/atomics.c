@@ -11,11 +11,8 @@
  *
  *-------------------------------------------------------------------------
  */
-// #include "postgres.h"
 
-// #include "miscadmin.h"
 #include "atomics.h"
-// #include "storage/spin.h"
 
 typedef int slock_t;
 

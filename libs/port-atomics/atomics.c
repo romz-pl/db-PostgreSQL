@@ -11,11 +11,10 @@
  *
  *-------------------------------------------------------------------------
  */
-// #include "postgres.h"
 
-// #include "miscadmin.h"
 #include "atomics.h"
-// #include "storage/spin.h"
+#include <ps/global/pg_config.h>
+#include <ps/global/pg_config_manual.h>
 
 typedef int slock_t;
 
