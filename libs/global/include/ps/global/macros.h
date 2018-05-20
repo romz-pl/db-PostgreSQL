@@ -10,19 +10,19 @@
   * Max
   *      Return the maximum of two numbers.
   */
- #define Max(x, y)       ((x) > (y) ? (x) : (y))
+#define Max(x, y)       ((x) > (y) ? (x) : (y))
 
  /*
   * Min
   *      Return the minimum of two numbers.
   */
- #define Min(x, y)       ((x) < (y) ? (x) : (y))
+#define Min(x, y)       ((x) < (y) ? (x) : (y))
 
  /*
   * Abs
   *      Return the absolute value of the argument.
   */
- #define Abs(x)          ((x) >= 0 ? (x) : -(x))
+#define Abs(x)          ((x) >= 0 ? (x) : -(x))
 
  /*
   * StrNCpy
@@ -40,7 +40,7 @@
   *  live bug reports from real live users over exactly this mistake.
   *  Do it honestly with "memcpy(dst,src,len); dst[len] = '\0';", instead.
   */
- #define StrNCpy(dst,src,len) \
+#define StrNCpy(dst,src,len) \
      do \
      { \
          char * _dst = (dst); \
@@ -55,7 +55,7 @@
 
 
  /* Get a bit mask of the bits set in non-long aligned addresses */
- #define LONG_ALIGN_MASK (sizeof(long) - 1)
+#define LONG_ALIGN_MASK (sizeof(long) - 1)
 
  /*
   * MemSet
@@ -67,7 +67,7 @@
   *  memset() functions.  More research needs to be done, perhaps with
   *  MEMSET_LOOP_LIMIT tests in configure.
   */
- #define MemSet(start, val, len) \
+#define MemSet(start, val, len) \
      do \
      { \
          /* must be void* because we don't know if it is integer aligned yet */ \
@@ -100,7 +100,7 @@
   * that the pointer is suitably aligned (typically, because he just got it
   * from palloc(), which always delivers a max-aligned pointer).
   */
- #define MemSetAligned(start, val, len) \
+#define MemSetAligned(start, val, len) \
      do \
      { \
          long   *_start = (long *) (start); \
@@ -129,13 +129,13 @@
   * MemSetAligned.  Beware of multiple evaluations of the arguments when using
   * this approach.
   */
- #define MemSetTest(val, len) \
+#define MemSetTest(val, len) \
      ( ((len) & LONG_ALIGN_MASK) == 0 && \
      (len) <= MEMSET_LOOP_LIMIT && \
      MEMSET_LOOP_LIMIT != 0 && \
      (val) == 0 )
 
- #define MemSetLoop(start, val, len) \
+#define MemSetLoop(start, val, len) \
      do \
      { \
          long * _start = (long *) (start); \
@@ -145,6 +145,7 @@
              *_start++ = 0; \
      } while (0)
 
+#define PG_FUNCNAME_MACRO   NULL
 
 #endif
 
