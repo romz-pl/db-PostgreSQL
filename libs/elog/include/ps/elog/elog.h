@@ -1,5 +1,6 @@
 // #include "../../../src/elog.h"
 
 
-#define elog(...) 
+#define elog(...)  ((void)1)
+#define ereport(...) ((void)1)
 
