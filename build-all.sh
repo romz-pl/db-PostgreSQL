@@ -19,7 +19,7 @@ perl --version  || exit 1
 --enable-cassert \
 --enable-depend || exit 1
 
-make || exit 1
+make -j5 || exit 1
 make check || exit 1
 
 
