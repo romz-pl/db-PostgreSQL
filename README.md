@@ -2,7 +2,7 @@
 [![Coverage Status](https://codecov.io/gh/romz-pl/db-PostgreSQL/badge.svg?branch=master)](https://codecov.io/gh/romz-pl/db-PostgreSQL?branch=master)
 
 
-Refactored version of PostgreSQL 
+This is fork of PostgreSQL 
 ==================================================================
 
 1. downloaded from git repository on 21 May 2018.
