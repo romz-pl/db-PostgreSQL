@@ -1,5 +1,13 @@
-Refactored version of PostgreSQL downloaded for git on 21 May 2018
+[![Build Status](https://travis-ci.org/romz-pl/db-PostgreSQL.svg?branch=master)](https://travis-ci.org/romz-pl/db-PostgreSQL)
+[![Coverage Status](https://codecov.io/gh/romz-pl/db-PostgreSQL/badge.svg?branch=master)](https://codecov.io/gh/romz-pl/db-PostgreSQL?branch=master)
+
+
+Refactored version of PostgreSQL 
 ==================================================================
+
+1. downloaded from git repository on 21 May 2018.
+
+2. commit 17485552ec3a7f9a19d568e4bb9b4affae4efdfa
 
 
 PostgreSQL Database Management System
