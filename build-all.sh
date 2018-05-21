@@ -12,6 +12,8 @@ flex --version    || exit 1
 bison --version   || exit 1
 perl --version    || exit 1
 xmllint --version || exit 1
+xsltproc --version || exit 1
+
 
 ../configure \
 --enable-debug \
