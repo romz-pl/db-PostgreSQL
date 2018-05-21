@@ -11,6 +11,8 @@ before_install:
 install:
   - sudo apt-get install -qq lcov
   - sudo apt-get install -qq libxml2-utils
+  - sudo apt-get install -qq xsltproc
+
   #  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 
 script: ./build-all.sh
