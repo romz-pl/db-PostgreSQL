@@ -10,7 +10,7 @@ before_install:
 
 install:
   - sudo apt-get install -qq lcov
-  - sudo apt-get install -qq xmllint
+  - sudo apt-get install -qq libxml2-utils
   #  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 
 script: ./build-all.sh
