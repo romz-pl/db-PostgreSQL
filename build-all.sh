@@ -7,18 +7,16 @@ rm -rf build || exit 1
 mkdir build || exit 1
 cd build || exit 1
 
-#
-# Run cmake
-#
+make --version
 
-# cmake -DCMAKE_BUILD_TYPE=Release .. || exit 1
-cmake -DBUILD_GTEST=ON -DBUILD_GMOCK=OFF -DCMAKE_BUILD_TYPE=Debug  .. || exit 1
-make -j4 || exit 1
+../configure \
+--enable-debug \
+--enable-coverage \
+--enable-cassert \
+--enable-depend || exit 1
 
+make || exit 1
+make check || exit 1
 
-#
-# Run test
-#
-ctest --verbose
 
 
