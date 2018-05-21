@@ -1,5 +1,5 @@
-Refactored version of PostgreSQL 10.4
-=====================================
+Refactored version of PostgreSQL downloaded for git on 21 May 2018
+==================================================================
 
 
 PostgreSQL Database Management System
