@@ -7,6 +7,8 @@ rm -rf build || exit 1
 mkdir build || exit 1
 cd build || exit 1
 
+make --version
+
 ../configure \
 --enable-debug \
 --enable-coverage \
