@@ -20,8 +20,9 @@ perl --version  || exit 1
 --enable-depend \
 CFLAGS='-O0' || exit 1
 
-make -j5 || exit 1
+make world -j5 || exit 1
 make check || exit 1
+make check-world || exit 1
 
 
 
