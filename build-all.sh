@@ -24,7 +24,12 @@ CFLAGS='-O0' || exit 1
 
 make -j5 world || exit 1
 # make check || exit 1
-make check-world || exit 1
 
+# Run check more tnah one to get an avared coverage result
+make check-world || exit 1
+make check-world || exit 1
+make check-world || exit 1
+make check-world || exit 1
+make check-world || exit 1
 
 
